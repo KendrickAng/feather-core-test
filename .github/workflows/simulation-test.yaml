@@ -16,5 +16,30 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version-file: 'go.mod'
-        
-      - run: go version
+      - name: Test
+        id: test
+        run: go test -v -run=TestFullAppSimulation ./app -NumBlocks 200 -BlockSize 50 -Commit -Enabled -Period 1 -Seed 40
+      - name: Update Pull Request
+        uses: actions/github-script@v6
+        env:
+          OUTPUT: "${{ steps.test.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Test Output\`${{ steps.fmt.outcome }}\`
+
+            <details><summary>Show Output</summary>
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+            </details>
+
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+            
