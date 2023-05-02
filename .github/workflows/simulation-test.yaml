@@ -37,7 +37,7 @@ jobs:
 
             <details><summary>Show Output</summary>
             \`\`\`\n
-            ${process.env.PLAN}
+            ${process.env.OUTPUT}
             \`\`\`
             </details>
 
