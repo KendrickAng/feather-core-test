@@ -17,12 +17,15 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version-file: 'go.mod'
+      
+      - name: Install Dependencies
+        run: go get .
 
       - name: Test
         id: test
         run: go test -v -run=TestFullAppSimulation ./app -NumBlocks 200 -BlockSize 50 -Commit -Enabled -Period 1 -Seed 40
         continue-on-error: true
-        
+
       - name: Update Pull Request
         uses: actions/github-script@v6
         env:
