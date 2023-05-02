@@ -17,9 +17,6 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version-file: 'go.mod'
-      
-      - name: Install Dependencies
-        run: go get .
 
       - name: Test
         id: test
@@ -33,7 +30,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const output = `#### Test Output\`${{ steps.fmt.outcome }}\`
+            const output = `#### Test Output\`${{ steps.test.outcome }}\`
 
             <details><summary>Show Output</summary>
             \`\`\`\n
