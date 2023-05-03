@@ -36,9 +36,11 @@ jobs:
             const output = `#### Test Output\`${{ steps.test.outcome }}\`
 
             <details><summary>Show Output</summary>
+
             \`\`\`\n
             ${process.env.OUTPUT}
             \`\`\`
+            
             </details>
 
             *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
