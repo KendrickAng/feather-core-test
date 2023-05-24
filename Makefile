@@ -161,6 +161,9 @@ all: install lint test
 install: go.sum
 	go build -o $(BINDIR)/$(FEATH_CONFIG_APP_BINARY_NAME) -mod=readonly $(BUILD_FLAGS) ./cmd/feather-core
 
+install-amd64: go.sum
+	GOOS=linux GOARCH=amd64 go build -o $(BINDIR)/$(FEATH_CONFIG_APP_BINARY_NAME) -mod=readonly $(BUILD_FLAGS) ./cmd/feather-core
+
 build: go.sum
 ifeq ($(OS),Windows_NT)
 	exit 1
